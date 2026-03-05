@@ -4,6 +4,7 @@ import {categoriesRouter} from "./routes/categories";
 import mysqlDb from "./mysqlDb";
 import 'dotenv/config';
 import {placesRouter} from "./routes/places";
+import {itemsRouter} from "./routes/items";
 
 const app = express();
 const port = 8000;
@@ -14,6 +15,7 @@ app.use(express.json());
 
 app.use('/categories', categoriesRouter);
 app.use('/places', placesRouter);
+app.use('/items', itemsRouter);
 
 
 const run = async () => {

@@ -27,7 +27,7 @@ CREATE TABLE `categories` (
                               `title` varchar(255) NOT NULL,
                               `description` text,
                               PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,17 +36,13 @@ CREATE TABLE `categories` (
 
 LOCK TABLES `categories` WRITE;
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
-INSERT INTO `categories` VALUES (1,'Мебель',NULL),(2,'Электроника','Электронные приборы');
+INSERT INTO `categories` VALUES (1,'Мебель',NULL),(2,'Канцелярия',NULL);
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
 -- Table structure for table `items`
 --
-
-DROP SCHEMA IF EXISTS `inventory-js-30-ulyana`;
-CREATE SCHEMA `inventory`;
-    USE `inventory`;
 
 DROP TABLE IF EXISTS `items`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -58,10 +54,13 @@ CREATE TABLE `items` (
                          `description` text,
                          `created_on` datetime DEFAULT CURRENT_TIMESTAMP,
                          `image` varchar(255) DEFAULT NULL,
+                         `place_id` int NOT NULL,
                          PRIMARY KEY (`id`),
                          KEY `items_categories_id_fk` (`category_id`),
-                         CONSTRAINT `items_categories_id_fk` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+                         KEY `items_places_id_fk` (`place_id`),
+                         CONSTRAINT `items_categories_id_fk` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`),
+                         CONSTRAINT `items_places_id_fk` FOREIGN KEY (`place_id`) REFERENCES `places` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,7 +69,7 @@ CREATE TABLE `items` (
 
 LOCK TABLES `items` WRITE;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
-INSERT INTO `items` VALUES (1,1,'Кресло','Обычное кресло','2026-03-05 13:47:38',NULL),(2,2,'Принтер',NULL,'2026-03-05 13:47:52',NULL);
+INSERT INTO `items` VALUES (7,1,'Диван','Кожаный диван','2026-03-05 16:46:53',NULL,1);
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -83,8 +82,6 @@ DROP TABLE IF EXISTS `places`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `places` (
                           `id` int NOT NULL AUTO_INCREMENT,
-                          `title` varchar(255) NOT NULL,
-                          `description` text,
                           PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -95,7 +92,7 @@ CREATE TABLE `places` (
 
 LOCK TABLES `places` WRITE;
 /*!40000 ALTER TABLE `places` DISABLE KEYS */;
-INSERT INTO `places` VALUES (1,'Кабинет директора','Этаж 3, кабинет 1'),(2,'Учительская','Этаж 2, кабинет 5');
+INSERT INTO `places` VALUES (1),(2);
 /*!40000 ALTER TABLE `places` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -108,4 +105,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-03-05 14:06:54
+-- Dump completed on 2026-03-05 16:47:19
